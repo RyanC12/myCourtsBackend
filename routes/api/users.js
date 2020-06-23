@@ -57,4 +57,37 @@ router.post("/", (req, res) => {
   });
 });
 
+//Gets all of the users
+router.get("/getAll", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+//Delete user
+router.delete("/deleteUser/:userId", async (req, res) => {
+  try {
+    const deleteUser = await User.remove({ _id: req.params.userId });
+    res.json(deleteUser);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+//update user email
+router.patch("/updateEmail/:userId", async (req, res) => {
+  try {
+    const updateEmail = await User.updateOne(
+      { _id: req.params.userId },
+      { $set: { email: req.body.email } }
+    );
+    res.json(updateEmail);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 module.exports = router;
