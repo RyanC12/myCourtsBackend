@@ -28,6 +28,7 @@ mongoose
 
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/courts", require("./routes/api/courts"));
 
 app.get("/", (req, res) => {
   res.send("Server is up and Running");

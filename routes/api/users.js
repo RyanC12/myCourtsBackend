@@ -70,7 +70,7 @@ router.get("/getAll", async (req, res) => {
 //Delete user
 router.delete("/deleteUser/:userId", async (req, res) => {
   try {
-    const deleteUser = await User.remove({ _id: req.params.userId });
+    const deleteUser = await User.deleteOne({ _id: req.params.userId });
     res.json(deleteUser);
   } catch (err) {
     res.json({ message: err });
