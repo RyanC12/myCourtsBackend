@@ -78,13 +78,44 @@ router.delete("/deleteUser/:userId", async (req, res) => {
 });
 
 //update user email
-router.patch("/updateEmail/:userId", async (req, res) => {
+router.put("/updateEmail/:userId", async (req, res) => {
   try {
     const updateEmail = await User.updateOne(
       { _id: req.params.userId },
       { $set: { email: req.body.email } }
     );
     res.json(updateEmail);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+//Add court to favorites
+router.put("/addToFavorites/:userId", async (req, res) => {
+  try {
+    const addCourt = await User.updateOne(
+      {
+        _id: req.params.userId,
+      },
+      { $push: { saved_courts: [req.body.saved_courts] } }
+    );
+    res.json(addCourt);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+//Delete court from favorites
+
+router.put("/deleteCourtFromFavorites/:userId", async (req, res) => {
+  try {
+    const deleteCourt = await User.updateOne(
+      {
+        _id: req.params.userId,
+      },
+      { $pull: { saved_courts: req.body.court_Id } }
+    );
+    res.json(deleteCourt);
   } catch (err) {
     res.json({ message: err });
   }

@@ -20,6 +20,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  saved_courts: {
+    type: [Object],
+  },
   date: {
     type: Date,
     default: Date.now,
